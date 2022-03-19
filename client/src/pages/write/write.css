@@ -1,0 +1,50 @@
+.write{
+    padding-top: 50px;
+}
+
+.writeImg{
+    margin-left: 150px;
+    max-width: 70vw;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 10px ;
+}
+
+.writeForm{
+    position: relative;
+}
+
+.writeFormGroup{
+    margin-left: 150px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.writeIcon{
+    cursor: pointer;
+}
+
+.writeInput{
+    font-size: 30px;
+    width: 80%;
+    border: none;
+    padding: 20px;
+    width: 70vw;
+}
+
+.writeInput:focus{
+    outline: none;
+}
+
+/* Phan than cua bai viet */
+.writeText{
+    font-size: 20px;
+    max-height: 100vh;
+}
+
+.writeSubmit{
+    position:absolute;
+    top: 20px;
+    right: 50px;
+}

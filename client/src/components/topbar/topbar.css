@@ -1,0 +1,53 @@
+.top{
+    width: 100%;
+    height: 50px;
+    position: sticky;
+    top: 0;
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    font-family: 'Josefin Sans', sans-serif, Arial, Helvetica, sans-serif;
+}
+
+.topLeft{
+    flex: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topRight{
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.topCenter{
+    flex: 6;
+    float: left;
+}
+
+.topImg{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.topList{
+    display: flex;
+    justify-content: left;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.topListItem{
+    margin-left: 5px;
+    margin-right: 15px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+}

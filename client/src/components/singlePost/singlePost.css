@@ -1,0 +1,61 @@
+.singlePost{
+    flex: 9;
+}
+
+.singlePostWrapper{
+    padding: 20px;
+    padding-right: 0;
+}
+
+.singlePostImg{
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.singlePostTitle{
+    text-align: center;
+    font-family: 'Lora', serif;
+    font-size: 36px;
+    margin: 10px;
+}
+
+.singlePostEdit{
+    float: right;
+}
+
+.singlePostIcon{
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.singlePostIcon:first-child{
+    color: green;
+}
+
+.singlePostIcon:last-child{
+    color: red;
+}
+
+.singlePostInfo{
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    color: #b39656;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.singlePostDesc{
+    font-size: 18px;
+    line-height: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* Qua ki cang di */
+.singlePostDesc::first-letter{
+    font-size: 30px;
+    font-weight: 600;
+    margin-left: 20px;
+}
