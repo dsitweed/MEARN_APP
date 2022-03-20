@@ -22,3 +22,26 @@ export const getCaterogies = async (req, res) => {
         res.status(500).json({mess:err});
     }
 }
+
+export const updateCaterogy = async (req, res) => {
+    try{
+        const catId = req.body.catId || req.body._id;
+        const category = await CategoryModel.findOneAndUpdate({_id:catId}, 
+            req.body,{new:true});
+        res.status(200).json(category);
+    }
+    catch (err){
+        res.status(500).json({mess:err});
+    }
+}
+
+export const deleteCaterogy = async (req, res) => {
+    try{
+        const catId = req.body.catId || req.body._id;
+        const category = await CategoryModel.findOneAndDelete({_id:catId});
+        res.status(200).json(category);
+    }
+    catch (err){
+        res.status(500).json({mess:err});
+    }
+}

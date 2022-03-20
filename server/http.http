@@ -83,9 +83,18 @@ POST http://localhost:5000/api/categories HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"life"
+    "name":"Cinema"
 }
 
 ###
 GET  http://localhost:5000/api/categories HTTP/1.1
 Content-Type: application/json
+
+###
+PUT  http://localhost:5000/api/categories HTTP/1.1
+Content-Type: application/json
+
+{
+    "_id": "623735771973d407e78ec708",
+    "name":"Life"
+}
