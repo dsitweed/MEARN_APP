@@ -45,7 +45,7 @@ mongoose.connect(URI)
 app.use('/api/auth', auth);
 app.use('/api/users', users);   
 app.use('/api/posts', posts);
-app.use('/api/category', categories);
+app.use('/api/categories', categories);
 
 app.post('/api/upload', upload.single("file"), (req,res) => {
     res.status(200).json("File has been uploaded");
