@@ -4,12 +4,13 @@ import { PostModel } from "../models/Post.js";
 export const createPost = async (req, res) => {
     try {
         // const post = new PostModel({
-        //     title: "test", //required
-        //     desc: "test",
-        //     username: "test"
+            // title: "test", //required
+            // desc: "test",
+            // username: "test"
         // });
         // post.save();
         const newPost = req.body;
+        console.log("in",newPost);
         const post = new PostModel(newPost);
         await post.save();
         res.status(200).json(post);
@@ -17,35 +18,71 @@ export const createPost = async (req, res) => {
         res.status(500).json({error: err});
     }
 };
+//UPDATE BY ID of post
 //'/:id'
-export const getPosts = async (req,res) => {
+export const updatePost = async (req, res) => {
     try {
-        console.log(req.body,req.params);
-        if (req.body.postId) {
-            
+        const idPost = req.params.id;
+        const post = await PostModel.findOne({_id: idPost});
+        if (post.username === req.body.username){
+            const updatePost = await PostModel.findOneAndUpdate({_id: idPost}, 
+                req.body, {new:true});
+            res.status(200).json(updatePost);
+        } else{
+            res.status(401).json({mess:"You just can update your post!"});
         }
+
     } catch (err) {
         res.status(500).json({error: err});
     }
 };
-
-export const updatePost = async (req, res) => {
+//DELETE BY ID of post
+//'/:id'
+export const deletePost = async (req, res) => {
     try {
-        const updatePost = req.body;
-        console.log(updatePost._id);
-        const post = await PostModel.findOneAndUpdate({ _id: updatePost._id}, updatePost, {new: true});
+        const postId = req.params.id;
+        const post = await PostModel.findOne({_id: postId});
+        if (req.body.username === post.username){
+            const deletePost = await PostModel.findOneAndDelete({_id: postId});
+            res.status(200).json({mess:"deleted", deletePost: deletePost});
+        } else{
+            res.status(401).json({mess:"You just can delete your post!"});
+        }
+    } catch (err){
+        res.status(500).json({error: err});
+    }
+};
 
+//'/:id' id of post
+export const getPost = async (req,res) => {
+    try {
+        const id = req.params.id;
+        const post = await PostModel.findOne({_id: id});
+        // console.log(post);
         res.status(200).json(post);
     } catch (err) {
         res.status(500).json({error: err});
     }
 };
 
-export const deletePost = async (req, res) => {
+//'/?user=' get all post
+export const getAllPosts = async (req,res) => {
     try {
-        const deletePost = req.body;
-        const post = await PostModel.deleteOne({ _id: deletePost._id});
-    } catch (err){
+        const username = req.query.user;
+        const catName = req.query.car;//cat = category
+        var posts;
+        if (username){
+            posts = await PostModel.find({username:username});
+        } else if (catName){
+            posts= await PostModel.find({categories: {
+                $in:[catName]//neu chua catName
+                },
+            })
+        } else{
+            posts = await PostModel.find();
+        }
+        res.status(200).json(posts);
+    } catch (err) {
         res.status(500).json({error: err});
     }
 };

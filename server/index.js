@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
+import cors from 'cors';
 import multer from "multer";
 import 'dotenv/config';
 
@@ -10,7 +11,7 @@ import posts from './routes/posts.js';
 import categories from './routes/categories.js';
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 const URI = process.env.MDB_URI;
 // set images folder save
 const storage = multer.diskStorage({
@@ -28,12 +29,13 @@ const upload = multer({ storage: storage });
 
 app.use(bodyParser.json({limit:'30mb'}));
 app.use(bodyParser.urlencoded({limit:'30mb', extended:true}));
+app.use(cors());
 
 mongoose.connect(URI)
     .then(() =>{
-        app.listen(PORT, () => {
+        app.listen(port, () => {
             console.log("Connected to MongooseDB")
-            console.log(`Server is running on: http://localhost:${PORT}`);
+            console.log(`Server is running on: http://localhost:${port}`);
         });
     })
     .catch(err => {
@@ -48,3 +50,7 @@ app.use('/api/category', categories);
 app.post('/api/upload', upload.single("file"), (req,res) => {
     res.status(200).json("File has been uploaded");
 });
+
+app.get('/', (req, res) => {
+    res.json("heelo");
+})

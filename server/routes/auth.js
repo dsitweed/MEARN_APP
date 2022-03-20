@@ -8,9 +8,9 @@ router.post('/register', register);
 
 //LOGIN
 router.post('/login', login);
-//GET ALL USER
 
-router.get('/getuser', );
+//GET ALL USER
+// router.get('/getuser', );
 
 
 export default router;

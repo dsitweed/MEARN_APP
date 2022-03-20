@@ -15,8 +15,8 @@ export const updateUser = async (req, res) => {
                 req.body.password = await bcrypt.hash(req.body.password, salt);
                 
                 const user = await UserModel.findOneAndUpdate({
-                    _id: req.params.id
-                }, req.body, {new:true});
+                    _id: req.params.id},
+                    req.body, {new:true});
                 res.status(200).json(user);
             }
         }
@@ -50,16 +50,10 @@ export const deleteUser = async (req, res) => {
 //'/:id' 
 export const getUser = async (req, res) => {
     try {
-        console.log(req.body, req.params);
-        if (req.body.userId === req.params.id){
-            const getId = req.body.userId || req.body._id;
-            const user = await UserModel.findOne({_id:getId});
-            const {password, ...others} = user._doc;
-            res.status(200).json(others);
-        }
-        else{
-            res.status(401).json({mess:"Can't update"});
-        }
+        const getId = req.params.id;
+        const user = await UserModel.findOne({_id:getId});
+        const {password, ...others} = user._doc;
+        res.status(200).json(others);
     }
     catch (err) {
         res.status(500).json({error: err});

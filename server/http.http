@@ -1,3 +1,5 @@
+@hostname = http://localhost:5000/api
+
 POST   http://localhost:5000/api/auth/register HTTP/1.1
 Content-Type: application/json
 
@@ -36,10 +38,41 @@ Content-Type: application/json
     "password": "gitnew"
 }
 
-# upload file
+# upload file img
 ###
 POST http://localhost:5000/api/upload HTTP/1.1
 Content-Disposition: form-data; name="file"; filename="1.png"
 Content-Type: image/png
 
 < 1.png
+
+###
+POST http://localhost:5000/api/posts/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "test1", 
+    "desc": "test1",
+    "username": "test1"
+}
+
+###
+PUT http://localhost:5000/api/posts/6236dd2cbc2bbf3948508c47 HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "test2", 
+    "desc": "test2",
+    "username": "test1"
+}
+
+###
+GET  http://localhost:5000/api/posts HTTP/1.1
+
+###
+DELETE  http://localhost:5000/api/posts/6236e2bdf170486c8683c7e0 HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "test1"
+}
