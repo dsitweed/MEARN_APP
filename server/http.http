@@ -1,0 +1,37 @@
+POST   http://localhost:5000/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "123",
+    "email": "123",
+    "password": "git"
+}
+
+###
+POST http://localhost:5000/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "123",
+    "password": "git"
+}
+
+###
+PUT  http://localhost:5000/api/users/62366f863bfae264f7c50fdf HTTP/1.1
+Content-Type: application/json
+
+{
+    "userId": "62366f863bfae264f7c50fdf",
+    "username": "123",
+    "password": "gitnew"
+}
+
+###
+GET   http://localhost:5000/api/users/62366f863bfae264f7c50fdf HTTP/1.1
+Content-Type: application/json
+
+{
+    "userId": "62366f863bfae264f7c50fdf",
+    "username": "123",
+    "password": "gitnew"
+}

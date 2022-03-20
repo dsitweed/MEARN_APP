@@ -10,7 +10,7 @@ import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
 
 function App() {
-  const user = false;
+  const user = true;
   return (
     <div className="App">
       <TopBar />
