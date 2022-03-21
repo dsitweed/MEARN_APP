@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import './post.css';
 
 export default function Post({post}){
+    // console.log(post);
+    // line 22 cat.name or cat
     return(
         <div className="post">
             {   //Photo is ready
@@ -16,8 +18,8 @@ export default function Post({post}){
             <div className="postInfo">
                 <div className="postCats">
                     {
-                        post.categories.map(e => (
-                            <span className="postCat">{e}</span>
+                        post.categories.map(cat => (
+                            <span className="postCat">{cat.name}</span>
                         ))
                     }
                 </div>

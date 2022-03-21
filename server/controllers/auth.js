@@ -5,6 +5,10 @@ import bcrypt from 'bcrypt';
 export const register = async (req, res) => {
     try {
         const newUser = req.body;
+        if(!newUser.username || !newUser.email || !newUser.password){
+            res.status(500).json({mess:"Validation failed"});
+            return;
+        }
         const check = await isHaveUser(newUser.username,"");
         //Chua catch exits email
         if (check === false) {
@@ -19,7 +23,7 @@ export const register = async (req, res) => {
             });
         }
         else{
-            res.status(200).json({mess:'failed'});
+            res.status(401).json({mess:'failed'});
         }
     }
     catch(err){

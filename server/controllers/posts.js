@@ -69,7 +69,7 @@ export const getPost = async (req,res) => {
 export const getAllPosts = async (req,res) => {
     try {
         const username = req.query.user;
-        const catName = req.query.car;//cat = category
+        const catName = req.query.cat;//cat = category
         var posts;
         if (username){
             posts = await PostModel.find({username:username});

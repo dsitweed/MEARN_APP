@@ -1,8 +1,18 @@
 import { Facebook, GitHub } from "@mui/icons-material";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import './sidebar.css';
+import { Link } from "react-router-dom";
+
+const baseURL = process.env.REACT_APP_SERVER_BASE_URL || "http://localhost:5000/api";
 
 export default function SideBar(){
+    const [cats, setCats] = useState([]);
+    useEffect(async () => {
+        const categories = await axios.get(baseURL + '/categories');
+        // console.log(categories.data);
+        setCats(categories.data);
+    }, [cats]);
     return(
         <div className="sidebar">
             <div className="sidebarItem">
@@ -17,12 +27,13 @@ export default function SideBar(){
             <div className="sidebarItem">
                 <span className="sidebarTitle">CATEGORIES</span>
                 <ul className="sidebarList">
-                    <li className="sidebarListItem">Life</li>
-                    <li className="sidebarListItem">Music</li>
-                    <li className="sidebarListItem">Style</li>
-                    <li className="sidebarListItem">Sport</li>
-                    <li className="sidebarListItem">Tech</li>
-                    <li className="sidebarListItem">Cinema</li>
+                    {
+                        cats.map((cat) => (
+                            <Link to={`/?cat=${cat.name}`} className="link" key={cat._id}>
+                                <li className="sidebarListItem">{cat.name}</li>
+                            </Link>
+                        ))
+                    }
                 </ul>
             </div>
             <div className="sidebarItem">

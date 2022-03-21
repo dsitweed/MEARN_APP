@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+const baseURL = process.env.REACT_APP_SERVER_BASE_URL || "http://localhost:5000/api";
+
 ## Available Scripts
 
 In the project directory, you can run:

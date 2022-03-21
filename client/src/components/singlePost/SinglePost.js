@@ -2,6 +2,7 @@ import { Delete, Edit } from "@mui/icons-material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 import './singlePost.css';
 
 const baseURL = process.env.REACT_APP_SERVER_BASE_URL || "http://localhost:5000/api";
@@ -11,12 +12,13 @@ export default function SinglePost() {
     //Dung de lay duong dan location
     const location = useLocation();
     //Loc ra id cua bi post -> xu li tiep
-    const path = location.pathname.split('/')[2];
+    const path = location.pathname.split('/');
+    const id = path[path.length-1];
     useEffect(async () => {
-        const getPost = await axios.get(baseURL + '/posts/' + path); 
+        const getPost = await axios.get(baseURL + '/posts/' + id); 
         // console.log(getPost);
         setPost(getPost.data);
-    }, [path]);
+    }, [id]);
     return (
         <div className="singlePost">
             <div className="singlePostWrapper">
@@ -38,7 +40,10 @@ export default function SinglePost() {
                 </h1>
                 <div className="singlePostInfo">
                     <span className="singlePostAuthor">
-                        Author: <b>{/*Ky*/}{post.username}</b>
+                        <span>Author: </span>
+                        <Link to={`/?user=${post.username}`} className="link">
+                            <b>{/*Ky*/}{post.username}</b>
+                        </Link>
                     </span>
                     <span className="singlePostDate">
                         {/* 1 hour ago */}
