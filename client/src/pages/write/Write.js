@@ -1,5 +1,5 @@
 import { AddPhotoAlternate } from "@mui/icons-material";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Popover, Typography } from "@mui/material";
 import React, { useState } from "react";
 import axios from 'axios';
 import './write.css';
@@ -8,12 +8,18 @@ import { useSelector } from "react-redux";
 const baseURL = process.env.REACT_APP_SERVER_BASE_URL || "http://localhost:5000/api";
 
 export default function Write(){
+    const user = useSelector(state => state.user.user);
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [file, setFile] = useState(null);
-    const user = useSelector(state => state.user.user);
-    
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+  
     const handleSubmit = async (e) =>{
+        // setAnchorEl(e.currentTarget);
         try{
             const newPost = {
                 title: title,
@@ -22,14 +28,21 @@ export default function Write(){
             }
             if (file){
                 const data = new FormData();
-                const filename = file.name;
+                const extenFile = file.name.split('.');
+                const filename = 'file' + '-' + Date.now() + '.' + extenFile.pop();
                 data.append("name", filename);
                 data.append("file", file);
                 const res = await axios.post(baseURL + '/upload', data);
-                newPost.photo(file);
-                console.log(newPost, file);
+                newPost.photo = filename;
+                // console.log(newPost, res);
             }
-            // const res = await axios.post(baseURL + '/posts', newPost);
+            const res = await axios.post(baseURL + '/posts', newPost);
+            // setTitle("");
+            // setDesc("");
+            // setFile(null);
+            //Can than title trung nhau
+            window.location.replace('/?user=' + user.username);
+            console.log(res);
         }
         catch(err){
             console.log(err);
@@ -75,7 +88,7 @@ export default function Write(){
                     >
                     </textarea>
                 </div>
-                <Button 
+                <Button
                     className="writeSubmit"
                     variant="contained" 
                     color="success"
@@ -89,6 +102,20 @@ export default function Write(){
                     Publish
                 </Button>
             </form>
+            {/* Popover for posted event */}
+            <div>
+                <Popover
+                    open={anchorEl}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                    }}
+                >
+                    <Typography sx={{ p: 2 }}>Posted</Typography>
+                </Popover>
+            </div>
         </div>
     );
 }

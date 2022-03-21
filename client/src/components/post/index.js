@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 import './post.css';
 
 export default function Post({post}){
-    // console.log(post);
+    const PF = process.env.REACT_APP_PICTURE_FOLDER || "http://localhost:5000/images"
     // line 22 cat.name or cat
     return(
         <div className="post">
             {   //Photo is ready
-                post.photo ?<></> :
+                post.photo &&
                 <img
                     className="postImg"
-                    src="./img_1.jpg"
+                    src={ `${PF}/${post.photo}` || "./img_1.jpg"}
                     alt="img" 
                 />
             }
