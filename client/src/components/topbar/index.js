@@ -1,9 +1,27 @@
 import './topbar.css';
 import React from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut } from '../../redux/userSlice';
+
+const baseURL = process.env.REACT_APP_SERVER_BASE_URL || "http://localhost:5000/api";
 
 export default function TopBar(){
-    const user = true;
+    const state = useSelector(state => state.user);
+    const user = state.user;
+    const dispatch = useDispatch();
+
+    async function handleLogout(){
+        try{
+            const res = await axios.get(baseURL + '/auth/logout');
+            dispatch(logOut());
+        }
+        catch (err){
+            console.log(err);
+        }
+    }
+
     return(
         <div className='top'>
             <div className='topLeft'>My MERN fullstack App</div>
@@ -21,8 +39,8 @@ export default function TopBar(){
                     <li className='topListItem'>
                         <Link className='link' to='/write'>WRITE</Link>
                     </li>
-                    <li className='topListItem'>
-                        {user && "LOGOUT"}
+                    <li className='topListItem' onClick={handleLogout}>
+                        {user && 'LOGOUT'}
                     </li>
                 </ul>
             </div>
@@ -31,7 +49,7 @@ export default function TopBar(){
                     user ? (
                         <img
                             className='topImg' 
-                            src='./logo_bear.png' 
+                            src= {user.profilePic || './logo_bear.png'} 
                             alt='person_icon'
                         ></img>
                     ) : (

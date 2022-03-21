@@ -37,7 +37,11 @@ export const login = async (req, res) => {
         const user = req.body;
         const check = await isHaveUser(user.username, user.password);
         if(check === true){
-            res.status(200).json(user);
+            const getUser = await UserModel.findOne({username: user.username});
+            const userData = getUser._doc;
+            res.status(200)
+                .cookie('user_id',userData._id, {signed: true})
+                .json(userData);
         }
         else{
             res.status(400).json({mess:"Failed"});
@@ -51,7 +55,9 @@ export const login = async (req, res) => {
 //LOGOUT
 export const logout = async (req, res) => {
     try {
-
+        res.status(200)
+            .clearCookie('user_id', {signed:true})
+            .json({mess:"Logout"});
     }
     catch (err) {
         console.log("err", err);

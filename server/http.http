@@ -4,9 +4,9 @@ POST   http://localhost:5000/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "",
-    "email": "",
-    "password": ""
+    "username": "ky",
+    "email": "ky",
+    "password": "ky"
 }
 
 ###
@@ -15,8 +15,12 @@ Content-Type: application/json
 
 {
     "username": "123",
-    "password": "git"
+    "password": "gitnew"
 }
+
+###
+GET http://localhost:5000/api/auth/logout HTTP/1.1
+
 
 ###
 PUT  http://localhost:5000/api/users/62366f863bfae264f7c50fdf HTTP/1.1
@@ -47,11 +51,11 @@ Content-Type: image/png
 < 1.png
 
 ###
-POST http://localhost:5000/api/posts/ HTTP/1.1
+POST http://localhost:5000/api/posts HTTP/1.1
 Content-Type: application/json
 
 {
-    "title": "test1", 
+    "title": "test2", 
     "desc": "test1",
     "username": "test1"
 }

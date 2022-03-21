@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 
 import TopBar from "./components/topbar";
@@ -10,7 +11,8 @@ import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
 
 function App() {
-  const user = true;
+  const state = useSelector(state => state.user);
+  const user = state.user;
   return (
     <div className="App">
       <TopBar />

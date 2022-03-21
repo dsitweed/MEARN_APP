@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import cors from 'cors';
 import multer from "multer";
 import 'dotenv/config';
@@ -20,7 +21,10 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, file.fieldname + '-' + uniqueSuffix)
+        const extension = file.originalname.split('.');
+        const extenFile = extension[extension.length - 1];
+        cb(null, file.fieldname + '-' + uniqueSuffix + '.' + extenFile);
+        cb(null, file.originalname);
     }
 });
 
@@ -29,7 +33,12 @@ const upload = multer({ storage: storage });
 
 app.use(bodyParser.json({limit:'30mb'}));
 app.use(bodyParser.urlencoded({limit:'30mb', extended:true}));
-app.use(cors());
+//random string for cookie signed
+app.use(cookieParser("random string for cookie signed"));
+app.use(cors({
+    origin:true,
+    credentials: true
+}));
 
 mongoose.connect(URI)
     .then(() =>{
