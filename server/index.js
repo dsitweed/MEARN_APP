@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from 'cors';
 import multer from "multer";
+import path from "path";
 import 'dotenv/config';
 
 import auth from './routes/auth.js';
@@ -20,11 +21,8 @@ const storage = multer.diskStorage({
         cb(null, 'images')
     },
     filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const extension = file.originalname.split('.');
-        const extenFile = extension[extension.length - 1];
-        cb(null, file.fieldname + '-' + uniqueSuffix + '.' + extenFile);
-        cb(null, file.originalname);
+        //req.body.name luu tru ten file anh gui tu client
+        cb(null, req.body.name);
     }
 });
 
@@ -39,6 +37,10 @@ app.use(cors({
     origin:true,
     credentials: true
 }));
+
+const __dirname = path.resolve();
+app.use("/images", express.static(path.join(__dirname, "/images")));
+
 
 mongoose.connect(URI)
     .then(() =>{
