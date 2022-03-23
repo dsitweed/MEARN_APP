@@ -30,4 +30,4 @@ newPost.photo = filename;
 ```
 #####
 Còn chưa thực hiện xóa các bài viết của user khi xóa đi user.
-Còn lỗi khi xóa được bài viết ko phải của mình.
+Còn lỗi khi xóa được bài viết ko phải của mình.//Da fix

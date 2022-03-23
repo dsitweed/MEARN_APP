@@ -1,17 +1,20 @@
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, Edit, FastfoodOutlined } from "@mui/icons-material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import ContentEditable from "react-contenteditable";
+import { useSelector } from 'react-redux';
 import './singlePost.css';
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogTitle, DialogContent, DialogContentText } from "@mui/material";
 
 export default function SinglePost() {
     const [post, setPost] = useState({});
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [edit, setEdit] = useState(false);
+    const [mess, setMess] = useState("");
+    const user = useSelector(state => state.user.user);
     const baseURL = process.env.REACT_APP_SERVER_BASE_URL || "http://localhost:5000/api";
     //Duong dan luu piture
     const PF = process.env.REACT_APP_PICTURE_FOLDER || "http://localhost:5000/images"
@@ -29,18 +32,27 @@ export default function SinglePost() {
     }, [id]);
 
     const handleEdit = () => {
+        if (user.username !== post.username){
+            setMess("You just can change your post!");
+            return;
+        }
         setEdit(true);
     }
 
     const handleDelete = async () => {
         //Cau lenh delete phai dung them data
-        const res = await axios.delete(baseURL + '/posts/' + id, {
-            data:{
-                username: post.username
-            }
-        });
-        console.log(res);
-        window.location.replace("/");
+        try{
+            const res = await axios.delete(baseURL + '/posts/' + id, {
+                data:{
+                    username: user.username
+                }
+            })
+            window.location.replace("/");
+        }
+        catch (err){
+            console.log(err);
+            setMess("You just can delete your post!");
+        }
     }
     const handleCompleted = async () => {
         const res = await axios.put(baseURL + '/posts/' + id, {
@@ -49,8 +61,11 @@ export default function SinglePost() {
             username: post.username
         })
         setEdit(false);
+        setMess("Edit completed!");
         console.log(res);
     }
+
+    const handleClose = () => setMess("");
 
     return (
         <div className="singlePost">
@@ -109,6 +124,21 @@ export default function SinglePost() {
                         Completed
                     </Button>
                 }
+            </div>
+            <div className="singlePostModal">
+                <Dialog
+                    open={mess}
+                    onClose={handleClose}
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {mess}
+                    </DialogTitle>
+                    <DialogActions>
+                    <Button onClick={handleClose} autoFocus>
+                        Agree
+                    </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         </div>
     );
