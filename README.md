@@ -1,8 +1,10 @@
-## Học sử dụng windown.location để nhảy trang này
+### Học sử dụng windown.location để nhảy trang này
 
-## Học sử dụng muler để lưu trữ ảnh ở  file tĩnh phía server
+### Học sử dụng muler để lưu trữ ảnh ở  file tĩnh phía server
 
-## Học sử dụng path để tạo đường dẫn cho ảnh để phía client có thể truy cập
+### Học sử dụng path để tạo đường dẫn cho ảnh để phía client có thể truy cập
+
+### Học nhảy trang dựa vào id trên url ntn
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -26,3 +28,6 @@ data.append("file", file);
 const res = await axios.post(baseURL + '/upload', data);
 newPost.photo = filename;
 ```
+#####
+Còn chưa thực hiện xóa các bài viết của user khi xóa đi user.
+Còn lỗi khi xóa được bài viết ko phải của mình.

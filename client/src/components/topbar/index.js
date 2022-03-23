@@ -12,6 +12,8 @@ export default function TopBar(){
     const user = state.user;
     const dispatch = useDispatch();
 
+    const PF = process.env.REACT_APP_PICTURE_FOLDER || "http://localhost:5000/images";
+
     async function handleLogout(){
         try{
             const res = await axios.get(baseURL + '/auth/logout');
@@ -47,11 +49,13 @@ export default function TopBar(){
             <div className='topRight'>
                 {
                     user ? (
-                        <img
-                            className='topImg' 
-                            src= {user.profilePic || './logo_bear.png'} 
-                            alt='person_icon'
-                        ></img>
+                        <Link to={'/settings'}>
+                            <img
+                                className='topImg' 
+                                src= {user.profilePic ? `${PF}/${user.profilePic}` : './logo_bear.png'} 
+                                alt='person_icon'
+                            />
+                        </Link>
                     ) : (
                         <>
                             <ul className='topList'>

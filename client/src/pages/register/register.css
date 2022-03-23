@@ -43,6 +43,10 @@
     font-size: 18px;
 }
 
+.registerButton:disabled{
+    cursor: not-allowed;
+}
+
 .registerLoginButton{
     margin-top: 10px;
     padding: 10px;

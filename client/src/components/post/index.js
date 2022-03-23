@@ -31,6 +31,9 @@ export default function Post({post}){
                     </span>
                 </Link>
                 <hr />
+                <span className="postAuthor">
+                    {`Author: ${post.username}`}
+                </span>
                 <span className="postDate">
                     {/* 1 hour ago */}
                     {dateFomat(post.createdAt)}

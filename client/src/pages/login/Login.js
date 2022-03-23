@@ -8,10 +8,15 @@ import { loginFailed, loginStart, loginSuccess } from '../../redux/userSlice';
 const baseURL = process.env.REACT_APP_SERVER_BASE_URL || "http://localhost:5000/api";
 
 export default function Login(){
-    const  [user, setUser] = useState("");
-    const  [pass, setPass] = useState("");
+    const [user, setUser] = useState("");
+    const [pass, setPass] = useState("");
+    const [error, setError] = useState("");
     const state = useSelector(state => state.user);
     const dispatch = useDispatch();
+
+    useEffect(() => {   
+        setError("");
+    }, [user, pass]);
 
     // console.log(state);
     const handleSubmit = async (e) =>{
@@ -24,12 +29,12 @@ export default function Login(){
                 password: pass
             });
             dispatch(loginSuccess(res.data));
-            localStorage.setItem("user", JSON.stringify(res.data));
             // res.data && window.location.reload();
         }
         catch(err){
             console.log(err);
             dispatch(loginFailed());
+            setError("Login failed!");
         }
     }
     return(
@@ -53,6 +58,10 @@ export default function Login(){
             <button className='loginRegisterButton'>
                 <Link className='link' to='/register'>REGSITER</Link>
             </button>
+            {
+                error && 
+                <span style={{marginTop:10 , color:'red'}}>{error}</span>
+            }
         </div>
     );
 }

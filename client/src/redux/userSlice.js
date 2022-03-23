@@ -14,21 +14,36 @@ export const userSlice = createSlice({
             state.isFetching = true;
         },
         loginSuccess: (state, action) =>{
+            state.isFetching = false;
             state.user = action.payload;
+            localStorage.setItem("user", JSON.stringify(action.payload));
             // state.user_name = getCookie("user_id"); // ko hieu sao doi cai nay thi moi reaload lai trang
                                 //Co the la do thay doi init state
         },
         loginFailed: (state, action) =>{
             state.error = "Login failed!";
         },
-        logOut: (state, action) =>{
+        logOut: (state, action) => {
+            state.user = null;
+            state.isFetching = false;
+            localStorage.clear();
+        },
+        updateProfilePic: (state, action) => {
+            state.user.profilePic = action.payload;
+            //Update data in localstorage
+            const bufferUser = JSON.parse(localStorage.getItem("user"));
+            bufferUser.profilePic = action.payload;
+            localStorage.setItem("user", JSON.stringify(bufferUser));
+        },
+        deleteAccount: (state, action) => {
             state.user = null;
             localStorage.clear();
+            //Xoa cac bai trong trong cua username;
         }
     }
 });
 //Action creator
-export const {loginStart, loginSuccess, loginFailed, logOut} = userSlice.actions;
+export const {loginStart, loginSuccess, loginFailed, logOut, updateProfilePic, deleteAccount} = userSlice.actions;
 
 export default userSlice.reducer;
 

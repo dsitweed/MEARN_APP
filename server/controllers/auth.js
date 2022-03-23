@@ -6,7 +6,12 @@ export const register = async (req, res) => {
     try {
         const newUser = req.body;
         if(!newUser.username || !newUser.email || !newUser.password){
-            res.status(500).json({mess:"Validation failed"});
+            res.status(401).json({mess:"Validation failed"});
+            return;
+        }
+        const checkEmail = await isEmail(newUser.email)
+        if (checkEmail === true) {
+            res.status(401).json({mess:"Validation failed"});
             return;
         }
         const check = await isHaveUser(newUser.username,"");
@@ -79,4 +84,13 @@ async function isHaveUser(username, password){
         });
     if (!password) return check;
     return (bcrypt.compareSync(password, user.password));
+}
+
+async function isEmail(email){
+    var check = false;
+    await UserModel.findOne({email: email})
+        .then(data => {
+            if (data !== null) check = true;
+        });
+    return check;
 }

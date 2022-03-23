@@ -4,10 +4,14 @@ import axios from 'axios';
 import './sidebar.css';
 import { Link } from "react-router-dom";
 
-const baseURL = process.env.REACT_APP_SERVER_BASE_URL || "http://localhost:5000/api";
+
 
 export default function SideBar(){
     const [cats, setCats] = useState([]);
+
+    const baseURL = process.env.REACT_APP_SERVER_BASE_URL || "http://localhost:5000/api";
+    const PF = process.env.REACT_APP_PICTURE_FOLDER || "http://localhost:5000/images";
+
     useEffect(async () => {
         const categories = await axios.get(baseURL + '/categories');
         // console.log(categories.data);
@@ -17,7 +21,9 @@ export default function SideBar(){
         <div className="sidebar">
             <div className="sidebarItem">
                 <span className="sidebarTitle">ABOUT ME</span>
-                <img className="sidebarImg" src="./moutain_1.jpg" alt="sideimg"></img>
+                <img className="sidebarImg" src={PF + "/about_me.png"} 
+                    alt="sideimg"
+                />
                 <p>
                     1adfadfafafafdafadsffffffffasdffaasd
                     fadsffffffffffffffasdffffffasdfasdas

@@ -53,6 +53,20 @@ export const deletePost = async (req, res) => {
     }
 };
 
+export const deletePostOfUser = async (req, res) => {
+    try {
+        const username = req.body.username; 
+        if (username){
+            const deletePosts = await PostModel.deleteMany({username: username});
+            res.status(200).json({mess:"deleted", deletePosts: deletePosts});
+        } else{
+            res.status(401).json({mess:"You just can delete your post!"});
+        }
+    } catch (err){
+        res.status(500).json({error: err});
+    }
+}
+
 //'/:id' id of post
 export const getPost = async (req,res) => {
     try {

@@ -57,3 +57,12 @@
     margin-top: 20px;
     cursor: pointer;
 }
+
+.settingsSubmit:disabled{
+    cursor: not-allowed;
+}
+
+.settingsMess{
+    margin-top: 10px ;
+    text-align: center;
+}

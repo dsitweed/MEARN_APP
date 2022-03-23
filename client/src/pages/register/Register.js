@@ -59,11 +59,12 @@ export default function Register(){
                     onChange={(e) => setPassValid(e.target.value)}
                 />
                 <button className='registerButton'
+                    disabled={!username || !email || !password || !passValid}
                     onClick={handleSubmit}
                 >Register</button>
             </form>
             <button className='registerLoginButton'>
-                <Link className='link' to='/login'>LOGIN</Link>
+                <Link className='link' to='/login'> LOGIN</Link>
             </button>
             {
                 error && 

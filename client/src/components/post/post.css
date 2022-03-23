@@ -41,6 +41,11 @@
     cursor: pointer;
 }
 
+.postAuthor{
+    font-size: 16px;
+    margin-top: 5px;
+}
+
 .postDate{
     font-size: 13px;
     font-style: italic;
