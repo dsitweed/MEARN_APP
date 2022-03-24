@@ -49,12 +49,15 @@ export default function TopBar(){
             <div className='topRight'>
                 {
                     user ? (
-                        <Link to={'/settings'}>
+                        <Link to={'/settings'} className="link">
                             <img
                                 className='topImg' 
                                 src= {user.profilePic ? `${PF}/${user.profilePic}` : './logo_bear.png'} 
                                 alt='person_icon'
                             />
+                            <div className='topUsername'>
+                                {user.username}
+                            </div>
                         </Link>
                     ) : (
                         <>

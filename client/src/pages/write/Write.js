@@ -1,6 +1,7 @@
 import { AddPhotoAlternate } from "@mui/icons-material";
 import { TextField, Button, Popover, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from 'react-router';
 import axios from 'axios';
 import './write.css';
 import { useSelector } from "react-redux";
@@ -13,6 +14,8 @@ export default function Write(){
     const [desc, setDesc] = useState("");
     const [file, setFile] = useState(null);
     const [anchorEl, setAnchorEl] = useState(null);
+
+    const navigate = useNavigate();
 
     const handleClose = () => {
       setAnchorEl(null);
@@ -41,8 +44,8 @@ export default function Write(){
             // setDesc("");
             // setFile(null);
             //Can than title trung nhau
-            window.location.replace('/?user=' + user.username);
-            console.log(res);
+            navigate('/?user=' + user.username);
+            // console.log(res);
         }
         catch(err){
             console.log(err);

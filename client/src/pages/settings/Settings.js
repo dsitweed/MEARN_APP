@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import SideBar from '../../components/sidebar';
 import './settings.css';
-import { deleteAccount, updateProfilePic } from '../../redux/userSlice';
+import { deleteAccount, updateUser } from '../../redux/userSlice';
 
 export default function Settings(){
     const [username, setUsername] = useState("");
@@ -49,7 +49,7 @@ export default function Settings(){
                 
             }
             const res = await axios.put(baseURL + '/users/' + user._id, newUser);
-            dispatch(updateProfilePic(newUser.profilePic));
+            dispatch(updateUser(newUser));
             setMess(UPDATE_SUCCESS);
             // console.log(res.data);
         }

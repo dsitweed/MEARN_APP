@@ -1,7 +1,7 @@
 import { Delete, Edit, FastfoodOutlined } from "@mui/icons-material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate, useNavigationType } from "react-router";
 import { Link } from "react-router-dom";
 import ContentEditable from "react-contenteditable";
 import { useSelector } from 'react-redux';
@@ -14,6 +14,8 @@ export default function SinglePost() {
     const [desc, setDesc] = useState("");
     const [edit, setEdit] = useState(false);
     const [mess, setMess] = useState("");
+
+    const navigate = useNavigate();
     const user = useSelector(state => state.user.user);
     const baseURL = process.env.REACT_APP_SERVER_BASE_URL || "http://localhost:5000/api";
     //Duong dan luu piture
@@ -47,7 +49,7 @@ export default function SinglePost() {
                     username: user.username
                 }
             })
-            window.location.replace("/");
+            navigate("/");
         }
         catch (err){
             console.log(err);

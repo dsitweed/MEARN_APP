@@ -29,5 +29,6 @@ const res = await axios.post(baseURL + '/upload', data);
 newPost.photo = filename;
 ```
 #####
-Còn chưa thực hiện xóa các bài viết của user khi xóa đi user.
+- Còn chưa thực hiện xóa các bài viết của user khi xóa đi user.
+- Chinh sua bai post khi chinh sua user.
 Còn lỗi khi xóa được bài viết ko phải của mình.//Da fix

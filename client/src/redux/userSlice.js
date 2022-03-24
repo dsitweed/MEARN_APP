@@ -28,11 +28,16 @@ export const userSlice = createSlice({
             state.isFetching = false;
             localStorage.clear();
         },
-        updateProfilePic: (state, action) => {
-            state.user.profilePic = action.payload;
+        updateUser: (state, action) => {
+            //Co the thu ngan lai bang cach loc bo password ra -> state.user = action.payload
+            state.user.profilePic = action.payload.profilePic;
+            state.user.username = action.payload.username;
+            state.user.email = action.payload.email;
             //Update data in localstorage
             const bufferUser = JSON.parse(localStorage.getItem("user"));
-            bufferUser.profilePic = action.payload;
+            bufferUser.profilePic = action.payload.profilePic;
+            bufferUser.username = action.payload.username;
+            bufferUser.email = action.payload.email;
             localStorage.setItem("user", JSON.stringify(bufferUser));
         },
         deleteAccount: (state, action) => {
@@ -43,7 +48,7 @@ export const userSlice = createSlice({
     }
 });
 //Action creator
-export const {loginStart, loginSuccess, loginFailed, logOut, updateProfilePic, deleteAccount} = userSlice.actions;
+export const {loginStart, loginSuccess, loginFailed, logOut, updateUser, deleteAccount} = userSlice.actions;
 
 export default userSlice.reducer;
 
