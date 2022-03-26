@@ -36,6 +36,19 @@ export const updatePost = async (req, res) => {
         res.status(500).json({error: err});
     }
 };
+//UPDATE AUTHOR OF POST
+export const updateAuthorPost = async (req, res) => {
+    try {
+        const user = req.query.user ? req.query.user : "";
+        const body = req.body;
+        if (user === body.username && body.newUsername && user){
+            const update = await PostModel.updateMany({username: user}, {username: body.newUsername}); 
+            res.status(200).json(update);
+        }
+    } catch (err) { 
+        res.status(500).json({error: err});
+    }
+};
 //DELETE BY ID of post
 //'/:id'
 export const deletePost = async (req, res) => {
@@ -53,19 +66,10 @@ export const deletePost = async (req, res) => {
     }
 };
 
-export const deletePostOfUser = async (req, res) => {
-    try {
-        const username = req.body.username; 
-        if (username){
-            const deletePosts = await PostModel.deleteMany({username: username});
-            res.status(200).json({mess:"deleted", deletePosts: deletePosts});
-        } else{
-            res.status(401).json({mess:"You just can delete your post!"});
-        }
-    } catch (err){
-        res.status(500).json({error: err});
-    }
-}
+//DELETE POSTS OF 1 AUTHOR
+export const deleteAuthorPost = async (req, res) => {
+    
+};
 
 //'/:id' id of post
 export const getPost = async (req,res) => {
