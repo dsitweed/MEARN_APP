@@ -49,6 +49,12 @@ export default function Settings(){
                 
             }
             const res = await axios.put(baseURL + '/users/' + user._id, newUser);
+            if (username){
+                const res2 = await axios.put(baseURL + '/authorPost?user=' + user.username, {
+                    username: user.username,
+                    newUsername: username
+                });
+            }
             dispatch(updateUser(newUser));
             setMess(UPDATE_SUCCESS);
             // console.log(res.data);
@@ -66,6 +72,11 @@ export default function Settings(){
                 userId : user._id
             }
          });
+         const res2 = await axios.delete(baseURL + '/authorPost?user=' + user.username, {
+            data:{
+                username: user.username
+            }
+        });
          dispatch(deleteAccount());
          window.location.reload();   
         }
