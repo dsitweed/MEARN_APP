@@ -1,5 +1,5 @@
 import { AddPhotoAlternate } from "@mui/icons-material";
-import { TextField, Button, Popover, Typography } from "@mui/material";
+import { TextField, Button, Dialog, DialogTitle, DialogActions} from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from 'react-router';
 import axios from 'axios';
@@ -13,16 +13,19 @@ export default function Write(){
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [file, setFile] = useState(null);
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [mess, setMess] = useState("");
 
     const navigate = useNavigate();
 
     const handleClose = () => {
-      setAnchorEl(null);
+        setMess("");
     };
   
     const handleSubmit = async (e) =>{
         // setAnchorEl(e.currentTarget);
+        if(!title || !desc){
+            setMess("Please fill out!");
+        }
         try{
             const newPost = {
                 title: title,
@@ -44,10 +47,11 @@ export default function Write(){
             // setDesc("");
             // setFile(null);
             //Can than title trung nhau
-            navigate('/?user=' + user.username);
+            // navigate('/?user=' + user.username);
             // console.log(res);
         }
         catch(err){
+            setMess("Something went wrong! May be repeat title.");
             console.log(err);
         }
     }
@@ -105,19 +109,20 @@ export default function Write(){
                     Publish
                 </Button>
             </form>
-            {/* Popover for posted event */}
-            <div>
-                <Popover
-                    open={anchorEl}
-                    anchorEl={anchorEl}
+            <div className="writeModel">
+                <Dialog
+                    open={mess}
                     onClose={handleClose}
-                    anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                    }}
                 >
-                    <Typography sx={{ p: 2 }}>Posted</Typography>
-                </Popover>
+                    <DialogTitle id="alert-dialog-title">
+                        {mess}
+                    </DialogTitle>
+                    <DialogActions>
+                    <Button onClick={handleClose} autoFocus>
+                        Agree
+                    </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         </div>
     );
