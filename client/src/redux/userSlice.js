@@ -1,4 +1,3 @@
-import { stepButtonClasses } from "@mui/material";
 import { createSlice } from "@reduxjs/toolkit";
 
 export const userSlice = createSlice({

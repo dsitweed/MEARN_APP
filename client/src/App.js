@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
+import DragDrop from "./components/dragDrop/DragDrop";
+import SideBar from "./components/sidebar";
 
 import TopBar from "./components/topbar";
 import Home from "./pages/home";

@@ -47,8 +47,7 @@ export default function Write(){
             // setDesc("");
             // setFile(null);
             //Can than title trung nhau
-            // navigate('/?user=' + user.username);
-            // console.log(res);
+            navigate('/?user=' + user.username);
         }
         catch(err){
             setMess("Something went wrong! May be repeat title.");

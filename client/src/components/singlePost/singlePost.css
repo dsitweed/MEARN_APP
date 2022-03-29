@@ -21,10 +21,15 @@
     margin: 10px;
 }
 
-.singlePostEdit{
-    float: right;
+.singlePostCats{
+    max-width: 100px;
+    font-size: 16px;
 }
 
+.singlePostEdit{
+    display: flex;
+    justify-content: flex-end;
+}
 .singlePostIcon{
     margin-left: 5px;
     cursor: pointer;
