@@ -6,7 +6,7 @@ import './dragdrop.css';
 export default function DragDrop({listItem, nameList, setListItem}) {
 
   function handleOnDragEnd(result) {
-    // console.log(result);
+    console.log(result);
     if (!result.destination) return;
     const newData = Array.from(listItem);
     // console.log(newData);
