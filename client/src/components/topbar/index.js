@@ -41,24 +41,30 @@ export default function TopBar(){
                     <li className='topListItem'>
                         <Link className='link' to='/write'>WRITE</Link>
                     </li>
-                    <li className='topListItem' onClick={handleLogout}>
-                        {user && 'LOGOUT'}
-                    </li>
+                    
                 </ul>
             </div>
             <div className='topRight'>
                 {
                     user ? (
-                        <Link to={'/settings'} className="link">
-                            <img
-                                className='topImg' 
-                                src= {user.profilePic ? `${PF}/${user.profilePic}` : './logo_bear.png'} 
-                                alt='person_icon'
-                            />
-                            <div className='topUsername'>
-                                {user.username}
+                        <div className='userTopRight'>
+                            <div className='topListItem' onClick={handleLogout}>
+                                {user && 'LOGOUT'}
                             </div>
-                        </Link>
+                            <Link to={'/settings'} className="link">
+                                <img
+                                    className='topImg' 
+                                    src= {user.profilePic ? `${PF}/${user.profilePic}` : './logo_bear.png'} 
+                                    alt='person_icon'
+                                />
+                                <div className='topUsername'>
+                                    {user.username}
+                                </div>
+                            </Link>
+                            
+                        </div>
+                        
+                        
                     ) : (
                         <>
                             <ul className='topList'>

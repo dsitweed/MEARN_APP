@@ -40,7 +40,20 @@ export default function Post({post}){
                 </span> 
             </div>
             <p className="postDesc">
-                {/* test wordasdddddddddddddddddddasddddddsadasasdsasasdskk| */}
+                {
+                    post.roomNumber && 
+                    <>
+                        <b>Phòng số:</b>{` P${post.roomNumber}`}
+                        <br></br>
+                    </>
+                }
+                {
+                    post.roomPrice && 
+                    <>
+                        <b>Giá tiền:</b>{` ${post.roomPrice}`}
+                        <br></br>
+                    </>
+                }
                 {post.desc}
             </p>
         </div>

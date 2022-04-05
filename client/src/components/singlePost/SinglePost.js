@@ -20,6 +20,8 @@ export default function SinglePost() {
   const [post, setPost] = useState({});
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const [roomNumber, setRoomNumber] = useState("");
+  const [roomPrice, setRoomPrice] = useState("");
   const [edit, setEdit] = useState(false);
   const [mess, setMess] = useState("");
   const [cats, setCats] = useState([
@@ -51,6 +53,8 @@ export default function SinglePost() {
     setPost(getPost.data);
     setTitle(getPost.data.title);
     setDesc(getPost.data.desc);
+    setRoomNumber(getPost.data.roomNumber);
+    setRoomPrice(getPost.data.roomPrice);
   }, [id]);
 
   const handleEdit = () => {
@@ -80,6 +84,8 @@ export default function SinglePost() {
       title: title,
       desc: desc,
       username: post.username,
+      roomNumber: roomNumber,
+      roomPrice: roomPrice
     });
     setEdit(false);
     setMess("Edit completed!");
@@ -132,12 +138,27 @@ export default function SinglePost() {
             {dateFomat(post.createdAt)}
           </span>
         </div>
+        <span>Room number</span>
         <ContentEditable
-          className="singlePostDesc"
-          html={desc}
+          className="singlePostRoomNumber"
+          html={roomNumber}
           disabled={!edit}
-          onChange={(e) => setDesc(e.target.value)}
+          onChange={(e) => setRoomNumber(e.target.value)}
         />
+        <span>Room price</span>
+        <ContentEditable
+          className="singlePostRoomPrice"
+          html={roomPrice}
+          disabled={!edit}
+          onChange={(e) => setRoomPrice(e.target.value)}
+        />
+        <span>Description</span>
+        <ContentEditable
+        className="singlePostDesc"
+        html={desc}
+        disabled={!edit}
+        onChange={(e) => setDesc(e.target.value)}
+      />
         {edit && (
           <Button
             variant="contained"

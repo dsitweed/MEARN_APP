@@ -52,7 +52,9 @@ Content-Type: application/json
 {
     "title": "test2", 
     "desc": "test1",
-    "username": "test1"
+    "username": "123",
+    "roomNumber": "304",
+    "roomPrice": "1.000.000VND"
 }
 
 ###

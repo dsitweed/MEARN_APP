@@ -12,6 +12,8 @@ export default function Write(){
     const user = useSelector(state => state.user.user);
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
+    const [roomNumber, setRoomNumber] = useState("");
+    const [roomPrice, setRoomPrice] = useState("");
     const [file, setFile] = useState(null);
     const [mess, setMess] = useState("");
 
@@ -22,7 +24,6 @@ export default function Write(){
     };
   
     const handleSubmit = async (e) =>{
-        // setAnchorEl(e.currentTarget);
         if(!title || !desc){
             setMess("Please fill out!");
         }
@@ -30,7 +31,9 @@ export default function Write(){
             const newPost = {
                 title: title,
                 desc: desc,
-                username: user.username
+                username: user.username,
+                roomNumber: roomNumber,
+                roomPrice: roomPrice
             }
             if (file){
                 const data = new FormData();
@@ -43,9 +46,6 @@ export default function Write(){
                 // console.log(newPost, res);
             }
             const res = await axios.post(baseURL + '/posts', newPost);
-            // setTitle("");
-            // setDesc("");
-            // setFile(null);
             //Can than title trung nhau
             navigate('/?user=' + user.username);
         }
@@ -83,6 +83,22 @@ export default function Write(){
                         InputProps={{ style: { fontSize: 30 } }}
                         InputLabelProps={{ style: { fontSize: 30 } }}
                         onChange={e => {setTitle(e.target.value)}}
+                    />
+                </div>
+                <div className="writeFormGroup sm">
+                    <TextField className="writeInput" label="Room number" variant="standard" 
+                        autoFocus={true}
+                        InputProps={{ style: { fontSize: 20 } }}
+                        InputLabelProps={{ style: { fontSize: 20 } }}
+                        onChange={e => {setRoomNumber(e.target.value)}}
+                    />
+                </div>
+                <div className="writeFormGroup sm">
+                    <TextField className="writeInput" label="Room price" variant="standard" 
+                        autoFocus={true}
+                        InputProps={{ style: { fontSize: 20 } }}
+                        InputLabelProps={{ style: { fontSize: 20 } }}
+                        onChange={e => {setRoomPrice(e.target.value)}}
                     />
                 </div>
                 <div className="writeFormGroup">

@@ -2,10 +2,10 @@ import { Facebook, GitHub } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./sidebar.css";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import DragDrop from "../dragDrop/DragDrop";
 import { changeCats } from "../../redux/displaySlice";
+import { useNavigate } from "react-router";
 
 export default function SideBar() {
   const [cats, setCats] = useState([]);
@@ -52,8 +52,12 @@ export default function SideBar() {
       <div className="sidebarItem">
         <span className="sidebarTitle">FOLLOW US</span>
         <div className="sidebarSocial">
-          <Facebook className="sidebarIcon"></Facebook>
-          <GitHub className="sidebarIcon"></GitHub>
+          <a href="#" target="_blank" className="link sidebarLink">
+            <Facebook className="sidebarIcon"></Facebook>
+          </a>
+          <a href="https://github.com/dsitweed/MEARN_APP" target="_blank" className="link sidebarLink">
+            <GitHub className="sidebarIcon"></GitHub>
+          </a>
         </div>
       </div>
     </div>

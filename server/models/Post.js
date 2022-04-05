@@ -21,6 +21,12 @@ const PostSchema = new mongoose.Schema({
     categories: {
         type: Array,
         required:false
+    },
+    roomNumber: {
+        type: String,
+    },
+    roomPrice: {
+        type: String,
     }
 }, { timestamps:true });
 
