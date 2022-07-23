@@ -23,6 +23,13 @@
     align-items: center;
 }
 
+.logOut {
+    padding-left: 50px;
+}
+
+.logOut:hover {
+    cursor: pointer;
+}
 
 .topCenter{
     flex: 6;
