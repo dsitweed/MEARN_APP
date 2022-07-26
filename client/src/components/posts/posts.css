@@ -1,6 +1,6 @@
 .posts{
     display: flex;
-    flex: 9;
-    flex-wrap: wrap;
+    flex: 9;            /* Posts : sideBar = 9 : 3*/
+    flex-wrap: wrap;    
     margin-top: 20px;
 }

@@ -5,6 +5,7 @@ import Posts from "../../components/posts";
 import SideBar from "../../components/sidebar";
 import './home.css';
 import { useLocation } from "react-router";
+import Footer from "../../components/footer/Footer";
 
 const baseURL = process.env.REACT_APP_SERVER_BASE_URL || "http://localhost:5000/api";
 
@@ -25,6 +26,7 @@ export default function Home(){
             <Posts posts= {posts} />
             <SideBar />
         </div>
+        <Footer />
        </>
     );
 }

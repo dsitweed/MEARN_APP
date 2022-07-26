@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 
 import App from './App';
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;  // allow receiving cookies
 
 ReactDOM.render(
   <React.StrictMode>

@@ -13,6 +13,12 @@
     align-items: center;
 }
 
+.loginBox{
+    background-color: #d8d4cf;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
 .loginTitle{
     font-size: 50px;
 }

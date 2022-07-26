@@ -52,8 +52,8 @@ export default function SideBar() {
       <div className="sidebarItem">
         <span className="sidebarTitle">FOLLOW US</span>
         <div className="sidebarSocial">
-          <Facebook className="sidebarIcon"></Facebook>
-          <GitHub className="sidebarIcon"></GitHub>
+          <a href="https://www.facebook.com/" target="_blank"><Facebook className="sidebarIcon" /></a>
+          <a href="https://github.com/dsitweed" target="_blank"> <GitHub className="sidebarIcon"/></a>
         </div>
       </div>
     </div>
