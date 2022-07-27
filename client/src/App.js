@@ -1,8 +1,7 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import DragDrop from "./components/dragDrop/DragDrop";
-import SideBar from "./components/sidebar";
+import axios from "axios";
 
 import TopBar from "./components/topbar";
 import Home from "./pages/home";
@@ -11,10 +10,26 @@ import Register from "./pages/register/Register";
 import Settings from "./pages/settings/Settings";
 import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
+import { loginSuccess } from "./redux/userSlice";
 
 function App() {
   const state = useSelector(state => state.user);
-  const user = state.user;
+  const dispatch = useDispatch();
+  var user = state.user;
+
+  const baseURL =
+  process.env.REACT_APP_SERVER_BASE_URL || "http://localhost:5000/api";
+
+  useEffect(async () => {
+    if (user === null) {
+      const userData = await (await axios.get(baseURL + "/auth/userdata")).data;
+      if (userData) {
+        dispatch(loginSuccess(userData));
+        console.log(userData);
+      } 
+    }
+  },[user]);
+
   return (
     <div className="App">
       <TopBar />

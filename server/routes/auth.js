@@ -1,5 +1,7 @@
 import express from "express";
-import { register, login, logout } from "../controllers/auth.js";
+import { register, login, logout, getUserData } from "../controllers/auth.js";
+import { authenToken } from "../middlewares/authenToken.js";
+import { checkLogin } from "../middlewares/checkLogin.js";
 
 const router = express.Router();
 
@@ -16,5 +18,8 @@ router.get('/logout', logout);
 //GET ALL USER
 // router.get('/getuser', );
 
+router.get('/checklogin', checkLogin);
+
+router.get('/userdata', authenToken, getUserData);
 
 export default router;

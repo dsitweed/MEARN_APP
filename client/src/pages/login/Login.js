@@ -28,6 +28,7 @@ export default function Login() {
         username: user,
         password: pass,
       });
+      console.log("data: ", res.data);
       dispatch(loginSuccess(res.data));
       // res.data && window.location.reload();
     } catch (err) {
