@@ -1,1 +1,6 @@
 - axios.defaults.withCredentials = true;
+
+sửa kích thước ảnh cho đều
+- kiểm tra lại các chức năng
+- đọc kĩ lại code
+- Hiểu kĩ còn hơn làm nhiều xong ko hiểu vì code đã đi copy rồi 

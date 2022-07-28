@@ -12,7 +12,7 @@ export const authenToken = (req, res, next) => {
 
         const decode = jwt.verify(token, secretStr);
         if (decode) {
-            req.userId = decode.userId;
+            req.userId = decode.identifyStr;
             next();
         }
     } catch (err) {

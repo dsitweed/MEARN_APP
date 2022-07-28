@@ -6,10 +6,10 @@ import { Popover, Typography } from "@mui/material";
 import "./login.css";
 import { useDispatch, useSelector } from "react-redux";
 import { loginFailed, loginStart, loginSuccess } from "../../redux/userSlice";
+import GoogleLogin from "../../components/GoogleLogin";
 
 const baseURL =
   process.env.REACT_APP_SERVER_BASE_URL || "http://localhost:5000/api";
-
 export default function Login() {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
@@ -70,6 +70,8 @@ export default function Login() {
           >
             Login
           </button>
+          <br/>
+          <GoogleLogin />
         </form>
         <button className="loginRegisterButton">
           <Link className="link" to="/register">

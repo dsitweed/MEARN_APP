@@ -25,7 +25,13 @@ export default function Write(){
         // setAnchorEl(e.currentTarget);
         if(!title || !desc){
             setMess("Please fill out!");
+            return;
+        } 
+        if (!file) {
+            setMess("Please add image!");
+            return;
         }
+
         try{
             const newPost = {
                 title: title,

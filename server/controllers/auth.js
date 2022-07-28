@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import { FAILED, SUCCESS } from "../constants/index.js";
+import { SessionModel } from "../models/Session.js";
 
 //REGISTER
 export const register = async (req, res) => {
@@ -12,7 +13,7 @@ export const register = async (req, res) => {
       res.status(401).json({ mess: "Validation failed" });
       return;
     }
-    const checkEmail = await isEmail(newUser.email);
+    const checkEmail = await isHaveEmail(newUser.email);
     if (checkEmail === true) {
       res.status(401).json({ mess: "Validation failed" });
       return;
@@ -44,10 +45,25 @@ export const login = async (req, res) => {
     const check = await isHaveUser(user.username, user.password);
     if (check === true) {
       const getUser = await UserModel.findOne({ username: user.username });
-      // console.log("printf: ", getUser._doc);
-      const userData = getUser._doc;
+      const userData = {
+        _id: getUser._id,
+        username : getUser.username,
+        email : getUser.email,
+        profilePic: getUser.profilePic,
+      }
+
+       // add identifyStr => to session in Database
+      const newSession = new SessionModel({
+        identifyStr : getUser._id,
+      });
+      await newSession.save();
+      // clear session when jwt token expired
+      setTimeout(async () => {
+        const deleteSesion = await SessionModel.deleteOne({identifyStr : newSession.identifyStr});
+      }, 1000 * 60 * 60 * 24); // milliseconds
+
       const secretStr = process.env.JWT_SECRET;
-      const token = jwt.sign({ userId: userData._id }, secretStr, {
+      const token = jwt.sign({ identifyStr: getUser._id }, secretStr, {
         expiresIn: "1h",
       });
       res.status(200).cookie("token", token).json(userData);
@@ -62,6 +78,11 @@ export const login = async (req, res) => {
 //LOGOUT
 export const logout = async (req, res) => {
   try {
+    if (!req.userId) {
+      res.status(401).json({ mess: FAILED });
+      return;
+    }
+    const deleteSesion = await SessionModel.deleteOne({identifyStr: req.userId});
     res.status(200).clearCookie("token").json({ mess: "Logout" });
   } catch (err) {
     console.log("err", err);
@@ -80,6 +101,7 @@ export const getUserData = async (req, res) => {
     res
       .status(200)
       .json({
+        _id: user._id,
         username: user.username,
         email: user.email,
         profilePic: user.profilePic,
@@ -91,7 +113,7 @@ export const getUserData = async (req, res) => {
 };
 /*-------------------------------------------------------*/
 // return boolen
-async function isHaveUser(username, password) {
+export async function isHaveUser(username, password) {
   var check = false;
   var user = {};
   if (!username) return false;
@@ -103,8 +125,8 @@ async function isHaveUser(username, password) {
   if (!password) return check;
   return bcrypt.compareSync(password, user.password);
 }
-
-async function isEmail(email) {
+ 
+export async function isHaveEmail(email) {
   var check = false;
   await UserModel.findOne({ email: email }).then((data) => {
     if (data !== null) check = true;

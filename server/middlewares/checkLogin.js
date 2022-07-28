@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { UserModel } from "../models/User.js";
 import { FAILED, SUCCESS } from "../constants/index.js";
+import { SessionModel } from "../models/Session.js";
 
 // return boolean
 export const checkLogin = async (req, res) => {
@@ -19,8 +20,8 @@ export const checkLogin = async (req, res) => {
     const secretStr = process.env.JWT_SECRET;
     // verify neu token da het han roi thi sao
     const decode = jwt.verify(token, secretStr);
-    const { userId } = decode;
-    const user = await UserModel.findOne({ _id: userId });
+    const { identifyStr } = decode;
+    const user = await SessionModel.findOne({ identifyStr : identifyStr });
     if (!user) {
       res.status(401).json({ message: FAILED });
       return false;

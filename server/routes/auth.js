@@ -13,7 +13,7 @@ router.post('/register', register);
 router.post('/login', login);
 
 //LOGOUT
-router.get('/logout', logout);
+router.get('/logout', authenToken ,logout);
 
 //GET ALL USER
 // router.get('/getuser', );

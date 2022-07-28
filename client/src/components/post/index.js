@@ -13,6 +13,7 @@ export default function Post({post}){
                     className="postImg"
                     src={ `${PF}/${post.photo}` || "./img_1.jpg"}
                     alt="img" 
+                    height={"215px"}
                 />
             }
             <div className="postInfo">

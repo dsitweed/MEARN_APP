@@ -9,7 +9,7 @@ import bcrypt from 'bcrypt';
 export const updateUser = async (req, res) => {
     try {
         console.log(req.body, req.params);
-        if (req.body.userId === req.params.id){
+        if (req.body._id === req.params.id){
             if (req.body.password) {
                 const salt = await bcrypt.genSalt(10);
                 req.body.password = await bcrypt.hash(req.body.password, salt);

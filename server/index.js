@@ -12,6 +12,7 @@ import users from './routes/users.js';
 import posts from './routes/posts.js';
 import categories from './routes/categories.js';
 import authorPost from './routes/authorPost.js';
+import google from './routes/google.js';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -60,6 +61,7 @@ app.use('/api/users', users);
 app.use('/api/posts', posts);
 app.use('/api/categories', categories);
 app.use('/api/authorPost', authorPost);
+app.use('/api/google', google);
 
 app.post('/api/upload', upload.single("file"), (req,res) => {
     res.status(200).json("File has been uploaded");

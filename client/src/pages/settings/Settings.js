@@ -23,6 +23,8 @@ export default function Settings(){
 
     useEffect(() => {
         setMess("");
+        setEmail(user.email);
+        setUsername(user.username);
     }, [username, email, password, validPass])
 
     const handleSubmit = async (e) => {
@@ -33,10 +35,11 @@ export default function Settings(){
         }
         try {
             const newUser = {
-                userId: user._id,
+                _id: user._id,
                 username: username,
                 email: email,
-                password: password
+                password: password,
+                profilePic: user.profilePic,
             }
             if (file){
                 const data = new FormData();
@@ -143,7 +146,8 @@ export default function Settings(){
                         onChange={e => setValidPass(e.target.value)}
                     />
                     <button className='settingsSubmit'
-                        disabled={!username || !email || !password || !validPass}
+                    // !username || !email ||
+                        disabled={ !password || !validPass}
                         onClick={handleSubmit}
                     >
                         Update
