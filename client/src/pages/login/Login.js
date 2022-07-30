@@ -70,8 +70,9 @@ export default function Login() {
           >
             Login
           </button>
-          <br/>
-          <GoogleLogin />
+          <div className="googleLogin">
+            <GoogleLogin/>
+          </div>
         </form>
         <button className="loginRegisterButton">
           <Link className="link" to="/register">

@@ -60,7 +60,7 @@ export const login = async (req, res) => {
       // clear session when jwt token expired
       setTimeout(async () => {
         const deleteSesion = await SessionModel.deleteOne({identifyStr : newSession.identifyStr});
-      }, 1000 * 60 * 60 * 24); // milliseconds
+      }, 1000 * 60 * 60); // milliseconds
 
       const secretStr = process.env.JWT_SECRET;
       const token = jwt.sign({ identifyStr: getUser._id }, secretStr, {

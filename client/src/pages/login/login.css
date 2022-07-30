@@ -66,3 +66,9 @@
     top: 60px;
     right: 20px;
 }
+
+.googleLogin {
+    margin: 5px;
+    /* display: flex;
+    justify-content: center; */
+}

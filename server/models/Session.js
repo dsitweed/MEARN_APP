@@ -4,7 +4,6 @@ const  SessionSchema = new mongoose.Schema({
     identifyStr: {
         type: String,
         required: true,
-        unique: true
     }
 }, {timestamps: true});
 

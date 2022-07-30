@@ -25,7 +25,6 @@ router.post("/login", async (req, res) => {
     console.log("result: ", check);
     // Don't exist user => create new user
     if (user && !check) {
-      // console.log(user);
       const newUser = new UserModel({
         username: user.displayName,
         email : user.email,
@@ -45,20 +44,24 @@ router.post("/login", async (req, res) => {
     const signinToken = jwt.sign({
       identifyStr: userId
     }, secretStr, {expiresIn: "1h"});
-
-    // create new session
-    const newSession = new SessionModel({
-      identifyStr : userId
-    });
-    await newSession.save();
-
-    setTimeout( async() => {
-      const deleteSesion = await SessionModel.deleteOne({
+    
+    const session = SessionModel.findOne({identifyStr : userId});
+    if (!session) {
+      // create new session
+      const newSession = new SessionModel({
         identifyStr : userId
-      })
-    }, 1000 * 60 * 60 * 24); // milliseconds
+      });
+      await newSession.save();
+  
+      setTimeout( async() => {
+        const deleteSesion = await SessionModel.deleteOne({
+          identifyStr : userId
+        })
+      }, 1000 * 60 * 60); // milliseconds
+    }
+    
 
-      console.log("--------", userId);
+    console.log("--------", userId);
     res.status(200)
       .cookie("token", signinToken)
       .json({

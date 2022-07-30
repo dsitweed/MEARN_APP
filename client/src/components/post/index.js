@@ -4,7 +4,7 @@ import './post.css';
 
 export default function Post({post}){
     const PF = process.env.REACT_APP_PICTURE_FOLDER || "http://localhost:5000/images"
-    // line 22 cat.name or cat
+
     return(
         <div className="post">
             {   //Photo is ready
@@ -32,9 +32,11 @@ export default function Post({post}){
                     </span>
                 </Link>
                 <hr />
-                <span className="postAuthor">
-                    {`Author: ${post.username}`}
-                </span>
+                <Link to={'/?user=' + post.username} className="link">
+                    <span className="postAuthor">
+                        {`Author: ${post.username}`}
+                    </span>
+                </Link>
                 <span className="postDate">
                     {/* 1 hour ago */}
                     {dateFomat(post.createdAt)}
